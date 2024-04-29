@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/models/article_model.dart';
 import 'package:news_app/utils/constants.dart';
 
 class NewsWidget extends StatelessWidget {
-  const NewsWidget({super.key});
+  final ArticleModel articleModel;
+
+  const NewsWidget({
+    super.key,
+    required this.articleModel,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20,),
+      padding: const EdgeInsets.only(
+        top: 20,
+      ),
       child: Column(
         children: [
           // Widget to give radius
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/pics/baymax.jpg',
+            child: Image.network(
+              articleModel.image ?? 'https://www.austintexas.gov/themes/custom/coa/images/news-default.png',
               width: double.infinity,
               height: 200,
               fit: BoxFit.cover,
@@ -23,8 +31,8 @@ class NewsWidget extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          const Text(
-            'Baymax! is an American animated superhero science fiction comedy television series created by Don Hall that premiered on Disney+ on June 29, 2022, featuring the Marvel Comics character of the same name',
+          Text(
+            articleModel.title,
             maxLines: 2,
             // Widget to handle the overflowing text
             overflow: TextOverflow.ellipsis,
@@ -36,8 +44,8 @@ class NewsWidget extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          const Text(
-            'Baymax! is an American animated superhero science fiction comedy television series created by Don Hall that premiered on Disney+ on June 29, 2022, featuring the Marvel Comics character of the same name',
+          Text(
+            articleModel.subTitle ?? '',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -50,3 +58,5 @@ class NewsWidget extends StatelessWidget {
     );
   }
 }
+
+

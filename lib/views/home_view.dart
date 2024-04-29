@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/widgets/app_bar_widget.dart';
 import 'package:news_app/widgets/category_list_widget.dart';
-import 'package:news_app/widgets/news_list_widget.dart';
+import 'package:news_app/widgets/news_list_builder_widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
       // Creates custom scroll effects using slivers
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 25,
+          horizontal: 20,
         ),
         child: CustomScrollView(
           // Slivers Family
@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
             SliverToBoxAdapter(
               child: CategoryListWidget(),
             ),
-            NewsListWidget(),
+            NewsListWidgetBuilder(),
           ],
         ),
       ),
