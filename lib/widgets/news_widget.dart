@@ -36,7 +36,7 @@ class NewsWidget extends StatelessWidget {
             maxLines: 2,
             // Widget to handle the overflowing text
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
@@ -48,7 +48,7 @@ class NewsWidget extends StatelessWidget {
             articleModel.subTitle ?? '',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               color: grey,
               fontSize: 14,
             ),

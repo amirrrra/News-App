@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/services/news_service.dart';
-import 'package:news_app/utils/constants.dart';
+import 'package:news_app/widgets/circular_indicator_widget.dart.dart';
+import 'package:news_app/widgets/error_message_widget.dart';
 import 'package:news_app/widgets/news_list_widget.dart';
 
 class NewsListWidgetBuilder extends StatefulWidget {
@@ -12,42 +13,32 @@ class NewsListWidgetBuilder extends StatefulWidget {
 }
 
 class _NewsListWidgetBuilderState extends State<NewsListWidgetBuilder> {
-  List<ArticleModel> articlesList = [];
-  bool isLoading = true;
-
+  dynamic listenToFuture;
+  // We separate the (trigger & listen)
   @override
-  //is called only once
   void initState() {
     super.initState();
-    getTechnologyNews();
-  }
-
-  Future<void> getTechnologyNews() async {
-    articlesList = await NewsService().getTechnologyNews();
-    isLoading = false;
-    setState(() {});
+    // 1- Method is triggered once => Data is then available
+    listenToFuture = NewsService().getTechnologyNews();
   }
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-
-    return isLoading
-        ? SliverToBoxAdapter(
-            child: SizedBox(
-              height: screenHeight / 1.3,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: black,
-                  backgroundColor: orange,
-                ),
-              ),
-            ),
-          )
-        : articlesList.isNotEmpty
-            ? const SliverToBoxAdapter(
-                child: Text('Opps, there was an error.. try later.'),
-              )
-            : NewsListWidget(articlesList: articlesList);
+    return FutureBuilder<List<ArticleModel>>(
+      // 2- With every rebuild future parameter is listening (no trigger any more)
+      future: listenToFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return NewsListWidget(
+            articlesList: snapshot.data!,
+          );
+        } else if (snapshot.hasError) {
+          return const ErrorMessageWidget();
+        } else {
+          return const CircularIndicatorWidget();
+        }
+      },
+    );
   }
 }
+

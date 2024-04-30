@@ -8,23 +8,25 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      centerTitle: true,
-      title: const Row(
+    double screenWidth = MediaQuery.of(context).size.width;
+    return SliverAppBar(
+      title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'News',
             style: TextStyle(
               color: black,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
+              fontSize: screenWidth / 15,
             ),
           ),
           Text(
             'Cloud',
             style: TextStyle(
-              color: orange,
-              fontWeight: FontWeight.bold,
+              color: blue,
+              fontWeight: FontWeight.w700,
+              fontSize: screenWidth / 15,
             ),
           ),
         ],
