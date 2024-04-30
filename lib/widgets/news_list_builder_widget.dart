@@ -32,7 +32,6 @@ class _NewsListWidgetBuilderState extends State<NewsListWidgetBuilder> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Creates a sliver that places box children in a linear array
     return isLoading
         ? SliverToBoxAdapter(
             child: SizedBox(
@@ -45,6 +44,10 @@ class _NewsListWidgetBuilderState extends State<NewsListWidgetBuilder> {
               ),
             ),
           )
-        : NewsListWidget(articlesList: articlesList);
+        : articlesList.isNotEmpty
+            ? const SliverToBoxAdapter(
+                child: Text('Opps, there was an error.. try later.'),
+              )
+            : NewsListWidget(articlesList: articlesList);
   }
 }
