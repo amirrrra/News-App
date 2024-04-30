@@ -19,11 +19,7 @@ class NewsService {
       List<ArticleModel> articlesList = [];
 
       for (var e in articles) {
-        ArticleModel articleModel = ArticleModel(
-          title: e['title'],
-          subTitle: e['description'],
-          image: e['urlToImage'],
-        );
+        ArticleModel articleModel = ArticleModel.fromjson(e);
         articlesList.add(articleModel);
       }
       return articlesList;
