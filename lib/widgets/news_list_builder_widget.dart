@@ -6,7 +6,11 @@ import 'package:news_app/widgets/error_message_widget.dart';
 import 'package:news_app/widgets/news_list_widget.dart';
 
 class NewsListWidgetBuilder extends StatefulWidget {
-  const NewsListWidgetBuilder({super.key});
+  final String category;
+  const NewsListWidgetBuilder({
+    super.key,
+    required this.category,
+  });
 
   @override
   State<NewsListWidgetBuilder> createState() => _NewsListWidgetBuilderState();
@@ -19,7 +23,7 @@ class _NewsListWidgetBuilderState extends State<NewsListWidgetBuilder> {
   void initState() {
     super.initState();
     // 1- Method is triggered once => Data is then available
-    listenToFuture = NewsService().getTechnologyNews();
+    listenToFuture = NewsService().getNews(category: widget.category);
   }
 
   @override
@@ -41,4 +45,3 @@ class _NewsListWidgetBuilderState extends State<NewsListWidgetBuilder> {
     );
   }
 }
-
